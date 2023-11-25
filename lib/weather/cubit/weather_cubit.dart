@@ -10,7 +10,7 @@ part 'weather_state.dart';
 
 part 'weather_cubit.g.dart';
 
-class WeatherCubit extends HydratedCubit<WeatherState> {
+class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this._weatherRepository) : super(WeatherState());
 
   final HttpWeatherRepository _weatherRepository;
