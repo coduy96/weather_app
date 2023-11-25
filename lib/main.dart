@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:weather_app/api/api_keys.dart';
 import 'package:weather_app/app.dart';
 import 'package:weather_app/weather_bloc_observer.dart';
 
 import 'api/api.dart';
-import 'api/api_keys.default.dart';
 import 'data/weather_repository.dart';
 
 void main() async {
@@ -24,7 +24,12 @@ void main() async {
     defaultValue: APIKeys.openWeatherAPIKey,
   );
 
-  runApp(WeatherApp(
+  runApp(
+    WeatherApp(
       httpWeatherRepository: HttpWeatherRepository(
-          api: OpenWeatherMapAPI(apiKey), client: http.Client())));
+        api: OpenWeatherMapAPI(apiKey),
+        client: http.Client(),
+      ),
+    ),
+  );
 }
