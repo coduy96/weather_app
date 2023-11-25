@@ -1,14 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:weather_app/weather/data/weather_repository.dart';
-
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:weather_app/domain/forecast/forecast_data.dart';
 
-import '../domain/weather/weather_data.dart';
-
-part 'weather_state.dart';
+import '../../../data/weather_repository.dart';
+import '../../../domain/weather/weather_data.dart';
 
 part 'weather_cubit.g.dart';
+part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this._weatherRepository) : super(WeatherState());
@@ -24,11 +23,15 @@ class WeatherCubit extends Cubit<WeatherState> {
       final weather = await _weatherRepository.getWeather(city: city);
       final weatherData = WeatherData.fromJson(weather);
 
+      final forecast = await _weatherRepository.getForecast(city: city);
+      final forecastData = ForecastData.fromJson(forecast);
+
       emit(
         state.copyWith(
           status: WeatherStatus.success,
           weather: weatherData,
           city: city.toUpperCase(),
+          forecastData: forecastData,
         ),
       );
     } on Exception {
@@ -43,11 +46,15 @@ class WeatherCubit extends Cubit<WeatherState> {
       final weather = await _weatherRepository.getWeather(city: state.city);
       final weatherData = WeatherData.fromJson(weather);
 
+      final forecast = await _weatherRepository.getForecast(city: state.city);
+      final forecastData = ForecastData.fromJson(forecast);
+
       emit(
         state.copyWith(
           status: WeatherStatus.success,
           weather: weatherData,
           city: state.city.toUpperCase(),
+          forecastData: forecastData,
         ),
       );
     } on Exception {
@@ -57,15 +64,15 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   void toggleUnits() {
     if (state.status.isSuccess) {
-      emit(state.copyWith(enableCelcius: !state.isEnableCelcius));
+      emit(state.copyWith(isEnableCelcius: !state.isEnableCelcius));
       return;
     }
   }
 
-  @override
-  WeatherState fromJson(Map<String, dynamic> json) =>
-      WeatherState.fromJson(json);
+  // @override
+  // WeatherState fromJson(Map<String, dynamic> json) =>
+  //     WeatherState.fromJson(json);
 
-  @override
-  Map<String, dynamic> toJson(WeatherState state) => state.toJson();
+  // @override
+  // Map<String, dynamic> toJson(WeatherState state) => state.toJson();
 }

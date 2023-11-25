@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/weather/data/weather_repository.dart';
-import 'package:weather_app/weather/weather.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/features/weather/view/weather_page.dart';
+
+import 'data/weather_repository.dart';
 
 const primaryColor = Color(0xffC0C0C0);
 

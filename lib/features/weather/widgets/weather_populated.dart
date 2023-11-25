@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/weather/domain/weather/weather_data.dart';
+import 'package:weather_app/features/detail/view/detail_page.dart';
+import 'package:weather_app/features/weather/cubit/weather_cubit.dart';
 
-import '../../widgets/weather_icon_image.dart'; // add this
+import '../../../domain/weather/weather_data.dart';
+import '../../../widgets/weather_icon_image.dart';
 
 class WeatherPopulated extends StatelessWidget {
   const WeatherPopulated({
@@ -87,6 +90,19 @@ class WeatherPopulated extends StatelessWidget {
                     )
                   ],
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.of(context).push<void>(
+                          DetailPage.route(context.read<WeatherCubit>()),
+                        );
+                      },
+                      icon: const Icon(Icons.info_rounded),
+                      label: const Text('Detail Forecast')),
+                )
               ],
             ),
           ),

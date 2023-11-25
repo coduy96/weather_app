@@ -1,5 +1,6 @@
-import 'package:weather_app/weather/domain/temperature.dart';
-import 'package:weather_app/weather/domain/weather/weather.dart';
+import 'package:weather_app/domain/weather/weather.dart';
+
+import '../temperature.dart';
 
 class WeatherData {
   WeatherData({
@@ -19,24 +20,6 @@ class WeatherData {
     date: DateTime.now(),
     icon: '',
   );
-
-  WeatherData copyWith({
-    Temperature? temp,
-    Temperature? minTemp,
-    Temperature? maxTemp,
-    String? description,
-    DateTime? date,
-    String? icon,
-  }) {
-    return WeatherData(
-      temp: temp ?? this.temp,
-      minTemp: minTemp ?? this.minTemp,
-      maxTemp: maxTemp ?? this.maxTemp,
-      description: description ?? this.description,
-      date: date ?? this.date,
-      icon: icon ?? this.icon,
-    );
-  }
 
   factory WeatherData.fromJson(Weather weather) {
     return WeatherData(

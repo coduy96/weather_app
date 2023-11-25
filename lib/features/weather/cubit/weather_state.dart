@@ -15,6 +15,7 @@ final class WeatherState extends Equatable {
     this.status = WeatherStatus.initial,
     this.city = '',
     this.isEnableCelcius = true,
+    this.forecastData = const ForecastData([]),
     WeatherData? weatherData,
   }) : weather = weatherData ?? WeatherData.empty;
 
@@ -25,19 +26,21 @@ final class WeatherState extends Equatable {
   final WeatherData weather;
   final String city;
   final bool isEnableCelcius;
+  final ForecastData forecastData;
 
   WeatherState copyWith({
     WeatherStatus? status,
     WeatherData? weather,
     String? city,
-    bool? enableCelcius,
+    bool? isEnableCelcius,
+    ForecastData? forecastData,
   }) {
     return WeatherState(
-      status: status ?? this.status,
-      weatherData: weather ?? this.weather,
-      city: city ?? this.city,
-      isEnableCelcius: enableCelcius ?? this.isEnableCelcius,
-    );
+        status: status ?? this.status,
+        weatherData: weather ?? this.weather,
+        city: city ?? this.city,
+        isEnableCelcius: isEnableCelcius ?? this.isEnableCelcius,
+        forecastData: forecastData ?? this.forecastData);
   }
 
   Map<String, dynamic> toJson() => _$WeatherStateToJson(this);
