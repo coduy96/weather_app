@@ -114,12 +114,12 @@ class UnitToggle extends StatelessWidget {
             previous.temperatureUnits != current.temperatureUnits,
         builder: (context, state) {
           return ListTile(
-            title: const Text(
+            title: Text(
               'Enable celcius units',
               style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor),
             ),
             trailing: Switch(
               value: state.temperatureUnits.isCelsius,
