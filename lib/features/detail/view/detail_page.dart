@@ -51,7 +51,7 @@ class DetailPage extends StatelessWidget {
                   trailing: Text(
                     state.isEnableCelcius
                         ? '${state.forecastData.list[index].temp.celsius.toStringAsPrecision(2)}°C'
-                        : '${state.forecastData.list[index].temp.celsius.toStringAsPrecision(2)}°F',
+                        : '${state.forecastData.list[index].temp.farhenheit.toStringAsPrecision(2)}°F',
                     style: Theme.of(context).textTheme.bodyLarge,
                   )),
             ),

@@ -72,7 +72,7 @@ class WeatherPopulated extends StatelessWidget {
                   child: Text(
                     isEnableCelcius
                         ? '${weather.temp.celsius.toStringAsPrecision(2)}°C'
-                        : '${weather.temp.celsius.toStringAsPrecision(2)}°F',
+                        : '${weather.temp.farhenheit.toStringAsPrecision(2)}°F',
                     style: theme.textTheme.displayLarge
                         ?.copyWith(fontWeight: FontWeight.bold, fontSize: 130),
                   ),
