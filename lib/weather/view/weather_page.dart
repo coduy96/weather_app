@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/weather/data/weather_repository.dart';
 import 'package:weather_app/weather/weather.dart';
-import 'package:weather_repository/weather_repository.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -9,7 +9,7 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(context.read<WeatherRepository>()),
+      create: (context) => WeatherCubit(context.read<HttpWeatherRepository>()),
       child: const WeatherView(),
     );
   }
@@ -42,7 +42,8 @@ class _WeatherViewState extends State<WeatherView> {
                 case WeatherStatus.success:
                   return WeatherPopulated(
                     weather: state.weather,
-                    units: state.temperatureUnits,
+                    city: state.city,
+                    isEnableCelcius: state.isEnableCelcius,
                     onRefresh: () {
                       return context.read<WeatherCubit>().refreshWeather();
                     },
@@ -110,8 +111,8 @@ class UnitToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocBuilder<WeatherCubit, WeatherState>(
-        buildWhen: (previous, current) =>
-            previous.temperatureUnits != current.temperatureUnits,
+        // buildWhen: (previous, current) =>
+        //     previous.temperatureUnits != current.temperatureUnits,
         builder: (context, state) {
           return ListTile(
             title: Text(
@@ -122,7 +123,7 @@ class UnitToggle extends StatelessWidget {
                   color: Theme.of(context).primaryColor),
             ),
             trailing: Switch(
-              value: state.temperatureUnits.isCelsius,
+              value: state.isEnableCelcius,
               onChanged: (_) => context.read<WeatherCubit>().toggleUnits(),
             ),
           );

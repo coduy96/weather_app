@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/weather/weather.dart';
-import 'package:intl/intl.dart'; // add this
+import 'package:intl/intl.dart';
+import 'package:weather_app/weather/domain/weather/weather_data.dart';
+
+import '../../widgets/weather_icon_image.dart'; // add this
 
 class WeatherPopulated extends StatelessWidget {
   const WeatherPopulated({
     required this.weather,
-    required this.units,
     required this.onRefresh,
+    required this.city,
+    required this.isEnableCelcius,
     super.key,
   });
 
-  final Weather weather;
-  final TemperatureUnits units;
+  final WeatherData weather;
   final ValueGetter<Future<void>> onRefresh;
-
+  final String city;
+  final bool isEnableCelcius;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -34,7 +37,7 @@ class WeatherPopulated extends StatelessWidget {
                     const Icon(Icons.location_on),
                     const SizedBox(width: 10),
                     Text(
-                      weather.location,
+                      city,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -45,7 +48,6 @@ class WeatherPopulated extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                //show today with format Wed--29 May
                 Text(
                   DateFormat('EEE-d MMM').format(DateTime.now()), // change this
                   style: theme.textTheme.headlineSmall?.copyWith(
@@ -63,72 +65,33 @@ class WeatherPopulated extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  weather.formattedTemperature(units),
-                  style: theme.textTheme.displayLarge
-                      ?.copyWith(fontWeight: FontWeight.bold, fontSize: 130),
+                Center(
+                  child: Text(
+                    isEnableCelcius
+                        ? '${weather.temp.celsius.toStringAsPrecision(2)}°C'
+                        : '${weather.temp.celsius.toStringAsPrecision(2)}°F',
+                    style: theme.textTheme.displayLarge
+                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 130),
+                  ),
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                _WeatherIcon(condition: weather.condition),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    WeatherIconImage(iconUrl: weather.iconUrl, size: 100),
+                    Text(
+                      weather.description,
+                      style: theme.textTheme.displaySmall,
+                    )
+                  ],
+                ),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-class _WeatherIcon extends StatelessWidget {
-  const _WeatherIcon({required this.condition});
-
-  static const _iconSize = 60.0;
-
-  final WeatherCondition condition;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          condition.toEmoji,
-          style: const TextStyle(fontSize: _iconSize),
-        ),
-        Text(
-          '${condition.name[0].toUpperCase()}${condition.name.substring(1)} day',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-extension on WeatherCondition {
-  String get toEmoji {
-    switch (this) {
-      case WeatherCondition.clear:
-        return '☀️';
-      case WeatherCondition.rainy:
-        return '🌧️';
-      case WeatherCondition.cloudy:
-        return '☁️';
-      case WeatherCondition.snowy:
-        return '🌨️';
-      case WeatherCondition.unknown:
-        return '❓';
-    }
-  }
-}
-
-extension on Weather {
-  String formattedTemperature(TemperatureUnits units) {
-    return '''${temperature.value.toStringAsPrecision(2)}°${units.isCelsius ? 'C' : 'F'}''';
   }
 }

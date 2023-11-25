@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/weather/data/weather_repository.dart';
 import 'package:weather_app/weather/weather.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_repository/weather_repository.dart';
 
 const primaryColor = Color(0xffC0C0C0);
 
 class WeatherApp extends StatelessWidget {
-  const WeatherApp({required WeatherRepository weatherRepository, super.key})
-      : _weatherRepository = weatherRepository;
+  const WeatherApp(
+      {required HttpWeatherRepository httpWeatherRepository, super.key})
+      : _weatherRepository = httpWeatherRepository;
 
-  final WeatherRepository _weatherRepository;
+  final HttpWeatherRepository _weatherRepository;
 
   @override
   Widget build(BuildContext context) {
