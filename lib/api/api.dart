@@ -1,4 +1,3 @@
-/// Uri builder class for the OpenWeatherMap API
 class OpenWeatherMapAPI {
   OpenWeatherMapAPI(this.apiKey);
   final String apiKey;

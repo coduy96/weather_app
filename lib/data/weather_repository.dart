@@ -8,7 +8,6 @@ import '../domain/forecast/forecast.dart';
 import '../domain/weather/weather.dart';
 import 'api_exception.dart';
 
-/// Weather Repository using the http client. Calls API methods and parses responses.
 class HttpWeatherRepository {
   HttpWeatherRepository({required this.api, required this.client});
   final OpenWeatherMapAPI api;
@@ -46,18 +45,3 @@ class HttpWeatherRepository {
     }
   }
 }
-
-// /// Providers used by rest of the app
-// final weatherRepositoryProvider = Provider<HttpWeatherRepository>((ref) {
-//   /// Use the API key passed via --dart-define,
-//   /// or fallback to the one defined in api_keys.dart
-//   // set key to const
-//   const apiKey = String.fromEnvironment(
-//     'API_KEY',
-//     defaultValue: APIKeys.openWeatherAPIKey,
-//   );
-//   return HttpWeatherRepository(
-//     api: OpenWeatherMapAPI(apiKey),
-//     client: http.Client(),
-//   );
-// });
