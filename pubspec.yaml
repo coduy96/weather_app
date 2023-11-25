@@ -23,7 +23,7 @@ dependencies:
   toggle_switch: ^2.1.0
   json_annotation: ^4.8.1
   cached_network_image: ^3.3.0
-
+  current_location: ^0.0.3
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

@@ -225,6 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  current_location:
+    dependency: "direct main"
+    description:
+      name: current_location
+      sha256: e181e5856537a8dfa4d994b805b09d30a23b9a24ad259b2d75153a95311625c9
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   dart_style:
     dependency: transitive
     description:

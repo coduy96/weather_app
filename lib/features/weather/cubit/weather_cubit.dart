@@ -1,3 +1,4 @@
+import 'package:current_location/current_location.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -13,6 +14,34 @@ class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this._weatherRepository) : super(WeatherState());
 
   final HttpWeatherRepository _weatherRepository;
+
+  Future<void> initFetchWeatherByLocation() async {
+    final userLocation = await UserLocation.getValue();
+    if (userLocation == null) return;
+
+    emit(state.copyWith(status: WeatherStatus.loading));
+
+    try {
+      final weather =
+          await _weatherRepository.getWeather(city: userLocation.country!);
+      final weatherData = WeatherData.fromJson(weather);
+
+      final forecast =
+          await _weatherRepository.getForecast(city: userLocation.country!);
+      final forecastData = ForecastData.fromJson(forecast);
+
+      emit(
+        state.copyWith(
+          status: WeatherStatus.success,
+          weather: weatherData,
+          city: userLocation.country!,
+          forecastData: forecastData,
+        ),
+      );
+    } on Exception {
+      emit(state.copyWith(status: WeatherStatus.failure));
+    }
+  }
 
   Future<void> fetchWeather(String? city) async {
     if (city == null || city.isEmpty) return;

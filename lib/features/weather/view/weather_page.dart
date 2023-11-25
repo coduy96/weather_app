@@ -28,8 +28,13 @@ class WeatherView extends StatefulWidget {
 }
 
 class _WeatherViewState extends State<WeatherView> {
-  final TextEditingController _searchTextController =
-      TextEditingController(); // add this
+  final TextEditingController _searchTextController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<WeatherCubit>().initFetchWeatherByLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
