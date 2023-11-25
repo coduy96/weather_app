@@ -6,5 +6,5 @@
 /// You can also specify an API Key via --dart-define. Example:
 /// "flutter run --dart-define API_KEY=YOUR_API_KEY
 class APIKeys {
-  static const openWeatherAPIKey = '2c1d978f76e5e3c63027061141304cc4';
+  static const openWeatherAPIKey = 'YOUR_API_KEY';
 }
