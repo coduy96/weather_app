@@ -1,6 +1,6 @@
 import 'package:current_location/current_location.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather_app/domain/forecast/forecast.dart';
 import 'package:weather_app/domain/forecast/forecast_data.dart';
@@ -12,7 +12,7 @@ import '../../../domain/weather/weather.dart';
 part 'weather_cubit.g.dart';
 part 'weather_state.dart';
 
-class WeatherCubit extends HydratedCubit<WeatherState> {
+class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this._weatherRepository) : super(WeatherState());
 
   final HttpWeatherRepository _weatherRepository;
