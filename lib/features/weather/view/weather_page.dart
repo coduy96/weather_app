@@ -33,7 +33,7 @@ class _WeatherViewState extends State<WeatherView> {
   @override
   void initState() {
     super.initState();
-    context.read<WeatherCubit>().initFetchWeatherByLocation();
+    // context.read<WeatherCubit>().initFetchWeatherByLocation();
   }
 
   @override
@@ -51,7 +51,7 @@ class _WeatherViewState extends State<WeatherView> {
                   return const WeatherLoading();
                 case WeatherStatus.success:
                   return WeatherPopulated(
-                    weather: state.weather,
+                    weather: state.weatherData,
                     city: state.city,
                     isEnableCelcius: state.isEnableCelcius,
                     onRefresh: () {
@@ -121,8 +121,8 @@ class UnitToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocBuilder<WeatherCubit, WeatherState>(
-        // buildWhen: (previous, current) =>
-        //     previous.temperatureUnits != current.temperatureUnits,
+        buildWhen: (previous, current) =>
+            previous.isEnableCelcius != current.isEnableCelcius,
         builder: (context, state) {
           return ListTile(
             title: Text(
