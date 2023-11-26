@@ -11,6 +11,10 @@ WeatherState _$WeatherStateFromJson(Map<String, dynamic> json) => WeatherState(
           WeatherStatus.initial,
       city: json['city'] as String? ?? '',
       isEnableCelcius: json['isEnableCelcius'] as bool? ?? true,
+      forecastData: json['forecastData'] == null
+          ? const ForecastData([])
+          : ForecastData.fromJson(
+              Forecast.fromJson(json['forecastData'] as Map<String, dynamic>)),
     );
 
 Map<String, dynamic> _$WeatherStateToJson(WeatherState instance) =>
@@ -18,6 +22,7 @@ Map<String, dynamic> _$WeatherStateToJson(WeatherState instance) =>
       'status': _$WeatherStatusEnumMap[instance.status]!,
       'city': instance.city,
       'isEnableCelcius': instance.isEnableCelcius,
+      'forecastData': instance.forecastData,
     };
 
 const _$WeatherStatusEnumMap = {

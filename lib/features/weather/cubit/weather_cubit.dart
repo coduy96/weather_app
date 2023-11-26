@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather_app/domain/forecast/forecast_data.dart';
+import 'package:weather_app/domain/forecast/forecast.dart';
 
 import '../../../data/weather_repository.dart';
 import '../../../domain/weather/weather_data.dart';
@@ -18,6 +19,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> initFetchWeatherByLocation() async {
     final userLocation = await UserLocation.getValue();
     if (userLocation == null) return;
+    if (userLocation.country == state.city) return;
 
     emit(state.copyWith(status: WeatherStatus.loading));
 
@@ -97,4 +99,14 @@ class WeatherCubit extends Cubit<WeatherState> {
       return;
     }
   }
+
+  // @override
+  // WeatherState? fromJson(Map<String, dynamic> json) {
+  //   return WeatherState.fromJson(json);
+  // }
+
+  // @override
+  // Map<String, dynamic>? toJson(WeatherState state) {
+  //   return state.toJson();
+  // }
 }

@@ -11,5 +11,6 @@ class Forecast {
 
   factory Forecast.fromJson(Map<String, dynamic> json) =>
       _$ForecastFromJson(json);
+
   Map<String, dynamic> toJson() => _$ForecastToJson(this);
 }
