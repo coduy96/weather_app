@@ -20,7 +20,14 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Detail forecast')),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text(
+          'Detail forecast',
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+      ),
       body: BlocBuilder<WeatherCubit, WeatherState>(
         builder: (context, state) {
           return ListView.builder(

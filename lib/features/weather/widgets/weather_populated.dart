@@ -101,7 +101,10 @@ class WeatherPopulated extends StatelessWidget {
                         );
                       },
                       icon: const Icon(Icons.info_rounded),
-                      label: const Text('Detail Forecast')),
+                      label: Text(
+                        'Detail Forecast',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      )),
                 )
               ],
             ),
