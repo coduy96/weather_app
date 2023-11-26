@@ -8,5 +8,14 @@ class Temperature {
   static double absoluteZero = 273.15;
 
   final double celsius;
+
   double get farhenheit => celsius * 1.8 + 32;
+
+  Map<String, dynamic> toJson() {
+    return {'celsius': celsius};
+  }
+
+  factory Temperature.fromJson(Map<String, dynamic> json) {
+    return Temperature.celsius(json['celsius']);
+  }
 }
