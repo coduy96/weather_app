@@ -1,9 +1,9 @@
 # Weather App Documentation
 
-## Application UI and Unit Test Acceptance
+## Application UI
 | App UI | Test Results |
 | --------- | ---------- |
-| ![App Image](./assets/app_image.png) | ![Test Image](./assets/test_result.png) |
+| ![Weather Page](./assets/weather_page.png) | ![Forecast Detail Page](./assets/detail_forecast_page.png) |
 
 
 ## Application features
@@ -11,30 +11,39 @@
 The Weather App is designed to provide real-time weather updates with a simple and user-friendly interface. To use the app:
 
 1. **Search Weather:** Search weather by seach bar
-2. **Toggle Unit:** Switch between Celsius and Fahrenheit temperature units.
+2. **Show Current Weather:** data on the HomePage.
+3. **Display the forecast:** for the next few days in the Forecast Detail Page view.
 
 ## Additional Features
 
-1. Pull-to-refresh
-2. Saving the current state even if the app is killed.
+1. **Pull-to-refresh**
+2. **Toggle Unit:** Switch between Celsius and Fahrenheit temperature units.
+3. **Geolocation:** Implement functionality to fetch the user's current location and display weather accordingly.
+
 
 ## App Structure
 
 App structure, the cubit/ directory within the weather/ folder indicates that are using a simplified version of the BLoC pattern, known as Cubit. The main difference is that Cubit is a lighter and simpler way to manage state without the full complexity of streams that come with a full BLoC implementation.
 
-App's BLoC components would handle all the logic for interacting with the open_meteo_api to fetch weather data, as well as managing the app state like loading, loaded, and error states. The weather_bloc_observer.dart likely contains code to observe BLoC state changes for debugging or logging purposes.
-
 By adhering to the BLoC pattern, app is more maintainable and scalable, which is advantageous if you plan to add more features in the future or need to handle more complex state management scenarios.
 
 ## Run and build app
 
-1. **Open a Terminal or Command Prompt**.
-
-2. **Navigate to your project directory**:
+1. **Navigate to your project directory**:
    ```sh
    cd path/to/your/weather_app
    ```
+2. **API Key config**:
+   To get an API key, sign up here:
+   https://home.openweathermap.org/users/sign_up
 
+   Then paste it in `api_keys.default.dart`  and rename this file to `api_keys.dart`.
+
+   You can also specify an API Key via --dart-define. Example:
+   ```
+   "flutter run --dart-define API_KEY=YOUR_API_KEY
+   ```
+   
 3. **Get all the dependencies**:
    ```sh
    flutter pub get
@@ -66,12 +75,6 @@ Optional steps if you encounter any issues:
   flutter clean
   ```
   Sometimes build-related problems can be resolved by cleaning the project.
-
-- **Run the analyzer to check for any issues with your code**:
-  ```sh
-   flutter analyze
-   ```
-   This will give you a report of any linting errors or warnings in your code.
 
 - **Run tests to ensure your app is working correctly**:
    ```sh
