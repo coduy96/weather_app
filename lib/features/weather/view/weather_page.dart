@@ -33,7 +33,7 @@ class _WeatherViewState extends State<WeatherView> {
   @override
   void initState() {
     super.initState();
-    // context.read<WeatherCubit>().initFetchWeatherByLocation();
+    context.read<WeatherCubit>().initFetchWeatherByLocation();
   }
 
   @override
